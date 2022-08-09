@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BucketConfiguration",""],["CreateBucketResponse",""]]});
