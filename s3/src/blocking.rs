@@ -118,7 +118,7 @@ impl<'a> AttoRequest<'a> {
             bucket,
             path,
             command,
-            datetime: DateTime::<Utc>::now(),
+            datetime: Utc::now(),
             sync: false,
         }
     }

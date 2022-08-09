@@ -143,7 +143,7 @@ impl<'a> SurfRequest<'a> {
             bucket,
             path,
             command,
-            datetime: DateTime::<Utc>::now(),
+            datetime: Utc::now(),
             sync: false,
         }
     }
