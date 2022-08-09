@@ -6,4 +6,4 @@ pub use credentials::*;
 pub mod error;
 
 // Reexport for e.g. users who need to build Credentials
-pub use time;
+pub use chrono;

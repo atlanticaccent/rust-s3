@@ -1,9 +1,10 @@
 extern crate base64;
 extern crate md5;
 
+use chrono::DateTime;
+use chrono::Utc;
 use maybe_async::maybe_async;
 use reqwest::{Client, Response};
-use time::OffsetDateTime;
 
 use crate::bucket::Bucket;
 use crate::command::Command;
@@ -18,7 +19,7 @@ pub struct Reqwest<'a> {
     pub bucket: &'a Bucket,
     pub path: &'a str,
     pub command: Command<'a>,
-    pub datetime: OffsetDateTime,
+    pub datetime: DateTime<Utc>,
     pub sync: bool,
 }
 
@@ -35,7 +36,7 @@ impl<'a> Request for Reqwest<'a> {
         self.path.to_string()
     }
 
-    fn datetime(&self) -> OffsetDateTime {
+    fn datetime(&self) -> DateTime<Utc> {
         self.datetime
     }
 
@@ -145,7 +146,7 @@ impl<'a> Reqwest<'a> {
             bucket,
             path,
             command,
-            datetime: OffsetDateTime::now_utc(),
+            datetime: Utc::now(),
             sync: false,
         }
     }

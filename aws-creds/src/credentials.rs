@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 use crate::error::CredentialsError;
+use chrono::DateTime;
+use chrono::Utc;
 use ini::Ini;
 use serde::{Deserialize, Serialize};
 use serde_xml_rs as serde_xml;
@@ -71,7 +73,7 @@ pub struct Credentials {
     /// Temporary token issued by AWS service.
     pub security_token: Option<String>,
     pub session_token: Option<String>,
-    pub expiration: Option<time::OffsetDateTime>,
+    pub expiration: Option<DateTime<Utc>>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -96,7 +98,7 @@ pub struct AssumeRoleWithWebIdentityResult {
 pub struct StsResponseCredentials {
     pub session_token: String,
     pub secret_access_key: String,
-    pub expiration: time::OffsetDateTime,
+    pub expiration: DateTime<Utc>,
     pub access_key_id: String,
 }
 
@@ -376,8 +378,7 @@ struct CredentialsFromInstanceMetadata {
     access_key_id: String,
     secret_access_key: String,
     token: String,
-    #[serde(with = "time::serde::rfc3339")]
-    expiration: time::OffsetDateTime, // TODO fix #163
+    expiration: DateTime<Utc>, // TODO fix #163
 }
 #[cfg(test)]
 #[test]

@@ -24,13 +24,14 @@ attohttpc = { version = "0.19", default-features = false, features = [
 url = "2"
 serde-xml-rs = "0.5"
 serde = { version = "1", features = ["derive"] }
-time = { version = "^0.3.6", features = ["serde", "serde-well-known"] }
+chrono = { version = "0.4.19", features = ["serde"] }
 
 [features]
 default = ["native-tls"]
 http-credentials = ["attohttpc"]
 native-tls = ["http-credentials", "attohttpc/tls"]
 rustls-tls = ["http-credentials", "attohttpc/tls-rustls"]
+wasmbind = ["chrono/wasmbind"]
 
 [dev-dependencies]
 env_logger = "0.9"

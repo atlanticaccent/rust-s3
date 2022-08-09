@@ -22,13 +22,13 @@ path = "src/lib.rs"
 async-std = { version = "1", optional = true }
 async-trait = "0.1"
 attohttpc = { version = "0.19", optional = true, default-features = false }
-aws-creds = { version = "0.30.0", default-features = false }
-# aws-creds = { path = "../aws-creds", default-features = false }
+# aws-creds = { version = "0.30.0", default-features = false }
+aws-creds = { path = "../aws-creds", default-features = false }
 aws-region = "0.25.1"
 # aws-region = {path = "../aws-region"}
 base64 = "0.13"
 cfg-if = "1"
-time = { version = "^0.3.6", features = ["formatting", "macros"] }
+chrono = { version = "0.4.19" }
 futures-io = { version = "0.3", optional = true }
 futures-util = { version = "0.3", optional = true, features = ["io"] }
 hex = "0.4"
@@ -72,12 +72,13 @@ sync-native-tls = ["sync", "aws-creds/native-tls", "attohttpc/tls"]
 sync-rustls-tls = ["sync", "aws-creds/rustls-tls", "attohttpc/tls-rustls"]
 blocking = ["block_on_proc", "tokio/rt", "tokio/rt-multi-thread"]
 tags = ["minidom"]
+wasm-bindgen = ["sync", "chrono/wasmbind", "aws-creds/rustls-tls", "aws-creds/wasmbind", "attohttpc/tls-rustls"]
 
 [dev-dependencies]
 tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "fs"] }
 async-std = { version = "1", features = ["attributes"] }
 uuid = { version = "1", features = ["v4"] }
 env_logger = "0.9"
-aws-creds = { version = "0.30", default-features = false }
-# aws-creds = { path = "../aws-creds", features = ["http-credentials"] }
+# aws-creds = { version = "0.30", default-features = false }
+aws-creds = { path = "../aws-creds", features = ["http-credentials"] }
 anyhow = "1"

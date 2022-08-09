@@ -29,6 +29,5 @@ pub mod error;
 pub mod request_trait;
 pub mod utils;
 
-const LONG_DATETIME: &[time::format_description::FormatItem<'static>] =
-    time::macros::format_description!("[year][month][day]T[hour][minute][second]Z");
+const LONG_DATETIME: &str = "%Y%m%dT%H%M%SZ";
 const EMPTY_PAYLOAD_SHA: &str = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";

@@ -1,7 +1,7 @@
+use chrono::DateTime;
+use chrono::Utc;
 use hmac::Mac;
 use std::collections::HashMap;
-use time::format_description::well_known::Rfc2822;
-use time::OffsetDateTime;
 use url::Url;
 
 use crate::bucket::Bucket;
@@ -64,7 +64,7 @@ pub trait Request {
         writer: &mut T,
     ) -> Result<u16, S3Error>;
     async fn response_header(&self) -> Result<(Self::HeaderMap, u16), S3Error>;
-    fn datetime(&self) -> OffsetDateTime;
+    fn datetime(&self) -> DateTime<Utc>;
     fn bucket(&self) -> Bucket;
     fn command(&self) -> Command;
     fn path(&self) -> String;
@@ -104,7 +104,7 @@ pub trait Request {
     }
 
     fn long_date(&self) -> String {
-        self.datetime().format(LONG_DATETIME).unwrap()
+        self.datetime().format(LONG_DATETIME).to_string()
     }
 
     fn string_to_sign(&self, request: &str) -> String {
@@ -467,7 +467,7 @@ pub trait Request {
         // the signed headers.
         headers.insert(
             DATE,
-            self.datetime().format(&Rfc2822).unwrap().parse().unwrap(),
+            self.datetime().to_rfc2822().parse().unwrap(),
         );
 
         Ok(headers)
