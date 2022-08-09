@@ -8,7 +8,7 @@ use attohttpc::header::HeaderName;
 use super::bucket::Bucket;
 use super::command::Command;
 use crate::error::S3Error;
-use time::OffsetDateTime;
+use chrono::{DateTime, Utc};
 
 use crate::command::HttpMethod;
 use crate::request_trait::{Request, ResponseData};
@@ -18,7 +18,7 @@ pub struct AttoRequest<'a> {
     pub bucket: &'a Bucket,
     pub path: &'a str,
     pub command: Command<'a>,
-    pub datetime: OffsetDateTime,
+    pub datetime: DateTime<Utc>,
     pub sync: bool,
 }
 
@@ -26,7 +26,7 @@ impl<'a> Request for AttoRequest<'a> {
     type Response = attohttpc::Response;
     type HeaderMap = attohttpc::header::HeaderMap;
 
-    fn datetime(&self) -> OffsetDateTime {
+    fn datetime(&self) -> DateTime<Utc> {
         self.datetime
     }
 
@@ -118,7 +118,7 @@ impl<'a> AttoRequest<'a> {
             bucket,
             path,
             command,
-            datetime: OffsetDateTime::now_utc(),
+            datetime: DateTime::<Utc>::now(),
             sync: false,
         }
     }
